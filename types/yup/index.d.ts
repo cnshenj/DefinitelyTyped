@@ -318,7 +318,7 @@ export type ObjectSchemaDefinition<T extends object | null | undefined> = {
     // inference only works with it this way - otherwise when you use a mixed
     // field in object schema, it will type as `unknown`. Not sure why that is -
     // maybe some sort of inference depth limit?
-    [field in keyof T]: Schema<T[field]> | MixedSchema<T[field]> | Ref;
+    [field in keyof T]: T extends Array<infer E> ? ArraySchema<E> : Schema<T[field]> | MixedSchema<T[field]> | Ref;
 };
 
 /**
